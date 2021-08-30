@@ -10,6 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AudiHomePageTest {
@@ -31,8 +32,28 @@ public class AudiHomePageTest {
         firstItem.click();
 
         List<WebElement> secodItem = wait.until(ExpectedConditions.visibilityOfAllElements(HomePageObject.getHomePage(driver).suvAndWagonsList));
-        System.out.println(secodItem);
-        System.out.println(secodItem.size());
+        int sum = 0;
+        for (WebElement element : secodItem) {
+            WebElement element1 = wait.until(ExpectedConditions.visibilityOf(element));
+            element1.click();
+
+            try {
+                String price = homePageObject.getPrice.getText();
+                System.out.println(price);
+
+
+            } catch (Exception e) {
+                System.out.println("EXEPTION SEKA");
+                System.out.println("Massage" + e.getMessage());
+                System.out.println("Cause" + e.getCause());
+                e.printStackTrace();
+
+            }
+
+
+            System.out.println(element.getText());
+
+        }
 //        for (WebElement element : secodItem) {
 //
 //            System.out.println("DEBUG iteration 1");
@@ -55,6 +76,7 @@ public class AudiHomePageTest {
 //            double newCent = Double.parseDouble(cent.get(i).getText());
 //            ans += newDollar + (newCent / 100);
 //        }
+//        Thread.sleep();
     }
 
 
