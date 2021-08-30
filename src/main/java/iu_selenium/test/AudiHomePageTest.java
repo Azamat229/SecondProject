@@ -25,8 +25,12 @@ public class AudiHomePageTest {
         HomePageObject homePageObject = HomePageObject.getHomePage(driver);
 
         WebDriverWait wait = new WebDriverWait(driver, 100);
-        WebElement info = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).info));
-        info.click();
+//        WebElement info = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).info));
+//        info.click();
+        WebElement cookieButtonClick = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).cookieSettingsButton));
+        cookieButtonClick.click();
+        WebElement cookieAcceptButtonClick = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).cookieSettingsButtonAccept));
+        cookieAcceptButtonClick.click();
         WebElement firstItem = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).suvAndWagonsButton));
         firstItem.click();
 

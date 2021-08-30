@@ -16,15 +16,22 @@ public class HomePageObject {
 
     }
 
-    @FindBy(xpath = "//button[@class=\"onetrust-close-btn-handler onetrust-close-btn-ui banner-close-button ot-close-icon\"]")
-    public WebElement info;
+
+
+    @FindBy(xpath = "//button[@id=\"onetrust-pc-btn-handler\"]")
+    public WebElement cookieSettingsButton;
+
+    @FindBy(xpath = "//button[@class=\"save-preference-btn-handler onetrust-close-btn-handler\"]")
+    public WebElement cookieSettingsButtonAccept;
+
+    ////button[@class="save-preference-btn-handler onetrust-close-btn-handler"]
 
     @FindBy(xpath = "//*[@id=\"nm-id-content\"]/div/div[2]/audi-model-band/div[2]/div[2]/div[1]/ul/li[1]/label[1]")
     public WebElement suvAndWagonsButton;
     ////*[@id="nm-id-content"]/div/div[2]/audi-model-band/div[2]/div[2]/div[1]/ul/li[1]/label[1]/picture[1]/img
 
 
-    @FindBy(xpath = "//li[@class=\"nm-model-band-container-item nm-model-band-container-types-item0 nm-model-band-container-item-visible\"]//ul[@class=\"nm-model-band-container-item-list\"]")
+    @FindBy(xpath = "//li[@class=\"nm-model-band-container-item nm-model-band-container-types-item0 nm-model-band-container-item-visible\"]")
     public List<WebElement> suvAndWagonsList;
 
     @FindBy(xpath = "//h4[@class=\"sc-fzoWqW hXeTQQ\"]//span[@class=\"sc-hOspLL enDSVW\"]")
