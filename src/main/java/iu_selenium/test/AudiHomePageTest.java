@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class AudiHomePageTest {
     WebDriver driver = Driver.getDriver("chrome");
@@ -21,12 +22,11 @@ public class AudiHomePageTest {
     }
 
     @Test
-    public void userClickSuvAndWagonsButton() {
+    public void getAllPrices() throws InterruptedException {
         HomePageObject homePageObject = HomePageObject.getHomePage(driver);
 
         WebDriverWait wait = new WebDriverWait(driver, 100);
-//        WebElement info = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).info));
-//        info.click();
+
         WebElement cookieButtonClick = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).cookieSettingsButton));
         cookieButtonClick.click();
         WebElement cookieAcceptButtonClick = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).cookieSettingsButtonAccept));
@@ -34,35 +34,31 @@ public class AudiHomePageTest {
         WebElement firstItem = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).suvAndWagonsButton));
         firstItem.click();
 
-        List<WebElement> secodItem = wait.until(ExpectedConditions.visibilityOfAllElements(HomePageObject.getHomePage(driver).suvAndWagonsList));
-        System.out.println(secodItem);
-        System.out.println(secodItem.size());
-        for (WebElement element : secodItem) {
+        List<WebElement> secondItem = wait.until(ExpectedConditions.visibilityOfAllElements(HomePageObject.getHomePage(driver).suvAndWagonsList));
+        WebElement elementTable;
+        int ans = 0;
+        for (int i = 0; i < secondItem.size(); i++) {
+            elementTable = wait.until(ExpectedConditions.elementToBeClickable(secondItem.get(i)));
 
-            System.out.println("DEBUG iteration 1");
-            String name = String.format("%s", element.getText());
-//            System.out.println(name);
-            WebElement w = driver.findElement(By.xpath("//li[@class=\"nm-model-band-container-item nm-model-band-container-types-item0 nm-model-band-container-item-visible\"]//ul[@class=\"nm-model-band-container-item-list\"]//li"));
-            System.out.println(w.getText());
-            w.click();
-//            String price = homePageObject.getPrice.getText();
-//            if (price == null){
-//                System.out.println("No element ");
-//            }else{
-//                System.out.println(price);
-//            }
-//
-//
-//
-//        }
+            elementTable.click();
 
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            WebElement ele = driver.findElement(By.tagName("h4"));
+            System.out.println((ele.getText()));
+            if (ele.getText().length() > 0) {
+                int num = Integer.parseInt((ele.getText().substring(13, ele.getText().length()-2)).replace(",", ""));
+                System.out.println(num);
+                ans += num;
+            }
 
-//        for (int i = 0; i <= suvAndWagonsList.size() - 1; i++) {
-//            double newDollar = Double.parseDouble(dollar.get(i).getText());
-//            double newCent = Double.parseDouble(cent.get(i).getText());
-//            ans += newDollar + (newCent / 100);
-//
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            driver.navigate().back();
+            WebElement firstItem6 = wait.until(ExpectedConditions.elementToBeClickable(HomePageObject.getHomePage(driver).suvAndWagonsButton));
+            driver.navigate().refresh();
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            firstItem6.click();
         }
+        System.out.println(ans);
 
 
     }
