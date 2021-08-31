@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class AudiHomePageTest {
     WebDriver driver = Driver.getDriver("chrome");
@@ -22,62 +23,29 @@ public class AudiHomePageTest {
     }
 
     @Test
-    public void userClickSuvAndWagonsButton() {
+    public void userClickSuvAndWagonsButton() throws InterruptedException {
         HomePageObject homePageObject = HomePageObject.getHomePage(driver);
 
         WebDriverWait wait = new WebDriverWait(driver, 100);
-        WebElement info = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).info));
-        info.click();
+//        WebElement info = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).info));
+//        info.click();
+        WebElement cookieButtonClick = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).cookieSettingsButton));
+        cookieButtonClick.click();
+        WebElement cookieAcceptButtonClick = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).cookieSettingsButtonAccept));
+        cookieAcceptButtonClick.click();
+
         WebElement firstItem = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).suvAndWagonsButton));
         firstItem.click();
 
-        List<WebElement> secodItem = wait.until(ExpectedConditions.visibilityOfAllElements(HomePageObject.getHomePage(driver).suvAndWagonsList));
+        Thread.sleep(20);
+        List<WebElement> secodItem = (HomePageObject.getHomePage(driver).allElements);
         int sum = 0;
+        System.out.println("ALL"+secodItem);
         for (WebElement element : secodItem) {
-            WebElement element1 = wait.until(ExpectedConditions.visibilityOf(element));
-            element1.click();
+            Thread.sleep(20);
+            element.click();
 
-            try {
-                String price = homePageObject.getPrice.getText();
-                System.out.println(price);
-
-
-            } catch (Exception e) {
-                System.out.println("EXEPTION SEKA");
-                System.out.println("Massage" + e.getMessage());
-                System.out.println("Cause" + e.getCause());
-                e.printStackTrace();
-
-            }
-
-
-            System.out.println(element.getText());
 
         }
-//        for (WebElement element : secodItem) {
-//
-//            System.out.println("DEBUG iteration 1");
-//            System.out.println(element);
-//            element.click();
-//            String price = homePageObject.getPrice.getText();
-//            if (price == null){
-//                System.out.println("No element ");
-//            }else{
-//                System.out.println(price);
-//            }
-//
-//
-//
-//        }
-
-
-//        for (int i = 0; i <= suvAndWagonsList.size() - 1; i++) {
-//            double newDollar = Double.parseDouble(dollar.get(i).getText());
-//            double newCent = Double.parseDouble(cent.get(i).getText());
-//            ans += newDollar + (newCent / 100);
-//        }
-//        Thread.sleep();
     }
-
-
 }
