@@ -37,11 +37,14 @@ public class AudiHomePageTest {
         List<WebElement> secodItem = wait.until(ExpectedConditions.visibilityOfAllElements(HomePageObject.getHomePage(driver).suvAndWagonsList));
         System.out.println(secodItem);
         System.out.println(secodItem.size());
-//        for (WebElement element : secodItem) {
-//
-//            System.out.println("DEBUG iteration 1");
-//            System.out.println(element);
-//            element.click();
+        for (WebElement element : secodItem) {
+
+            System.out.println("DEBUG iteration 1");
+            String name = String.format("%s", element.getText());
+//            System.out.println(name);
+            WebElement w = driver.findElement(By.xpath("//li[@class=\"nm-model-band-container-item nm-model-band-container-types-item0 nm-model-band-container-item-visible\"]//ul[@class=\"nm-model-band-container-item-list\"]//li"));
+            System.out.println(w.getText());
+            w.click();
 //            String price = homePageObject.getPrice.getText();
 //            if (price == null){
 //                System.out.println("No element ");
@@ -58,8 +61,9 @@ public class AudiHomePageTest {
 //            double newDollar = Double.parseDouble(dollar.get(i).getText());
 //            double newCent = Double.parseDouble(cent.get(i).getText());
 //            ans += newDollar + (newCent / 100);
-//        }
+//
+        }
+
+
     }
-
-
 }
