@@ -15,6 +15,9 @@ import java.util.concurrent.TimeUnit;
 
 public class AudiHomePageTest {
     WebDriver driver = Driver.getDriver("chrome");
+    HomePageObject homePageObject = HomePageObject.getHomePage(driver);
+    WebDriverWait wait = new WebDriverWait(driver, 100);
+
 
     @Test
     public void userIsOnHomePage() {
@@ -22,19 +25,21 @@ public class AudiHomePageTest {
     }
 
     @Test
-    public void getAllPrices() throws InterruptedException {
-        HomePageObject homePageObject = HomePageObject.getHomePage(driver);
-
-        WebDriverWait wait = new WebDriverWait(driver, 100);
-
-        WebElement cookieButtonClick = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).cookieSettingsButton));
+    public void clickSavAndWagons() {
+        driver.get("https://www.audiusa.com/us/web/en.html");
+        WebElement cookieButtonClick = wait.until(ExpectedConditions.visibilityOf(homePageObject.cookieSettingsButton));
         cookieButtonClick.click();
-        WebElement cookieAcceptButtonClick = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).cookieSettingsButtonAccept));
+        WebElement cookieAcceptButtonClick = wait.until(ExpectedConditions.visibilityOf(homePageObject.cookieSettingsButtonAccept));
         cookieAcceptButtonClick.click();
-        WebElement firstItem = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).suvAndWagonsButton));
+        WebElement firstItem = wait.until(ExpectedConditions.visibilityOf(homePageObject.suvAndWagonsButton));
         firstItem.click();
+    }
 
-        List<WebElement> secondItem = wait.until(ExpectedConditions.visibilityOfAllElements(HomePageObject.getHomePage(driver).suvAndWagonsList));
+
+    @Test
+    public void getAllPrices() throws InterruptedException {
+
+        List<WebElement> secondItem = wait.until(ExpectedConditions.visibilityOfAllElements(homePageObject.suvAndWagonsList));
         WebElement elementTable;
         int ans = 0;
         for (int i = 0; i < secondItem.size(); i++) {
@@ -44,18 +49,17 @@ public class AudiHomePageTest {
 
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
             WebElement ele = driver.findElement(By.tagName("h4"));
-            System.out.println((ele.getText()));
             if (ele.getText().length() > 0) {
                 int num = Integer.parseInt((ele.getText().substring(13, ele.getText().length()-2)).replace(",", ""));
-                System.out.println(num);
                 ans += num;
             }
 
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
             driver.navigate().back();
-            WebElement firstItem6 = wait.until(ExpectedConditions.elementToBeClickable(HomePageObject.getHomePage(driver).suvAndWagonsButton));
+            WebElement firstItem6 = wait.until(ExpectedConditions.elementToBeClickable(homePageObject.suvAndWagonsButton));
             driver.navigate().refresh();
-            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+            Thread.sleep(2000);
             firstItem6.click();
         }
         System.out.println(ans);
