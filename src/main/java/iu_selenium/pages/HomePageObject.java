@@ -19,7 +19,6 @@ public class HomePageObject {
     }
 
 
-
     @FindBy(xpath = "//button[@id=\"onetrust-pc-btn-handler\"]")
     public WebElement cookieSettingsButton;
 
@@ -31,11 +30,6 @@ public class HomePageObject {
     public WebElement suvAndWagonsButton;
 
 
-    @FindAll(@FindBy(xpath = "//li[@class=\"nm-model-band-container-item nm-model-band-container-types-item0 nm-model-band-container-item-visible\"]//ul[@class=\"nm-model-band-container-item-list\"]//li"))
-    public List<WebElement> suvAndWagonsList;
-
-
-
 
 
 
@@ -44,6 +38,7 @@ public class HomePageObject {
     public static HomePageObject getHomePage(WebDriver driver) {
         return new HomePageObject(driver);
     }
+
 
 
 }
