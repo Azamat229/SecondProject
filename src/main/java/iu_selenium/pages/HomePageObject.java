@@ -29,6 +29,8 @@ public class HomePageObject {
     @FindBy(xpath = "//*[@id=\"nm-id-content\"]/div/div[2]/audi-model-band/div[2]/div[2]/div[1]/ul/li[1]/label[1]")
     public WebElement suvAndWagonsButton;
 
+    @FindAll(@FindBy(xpath = "//li[@class=\"nm-model-band-container-item nm-model-band-container-types-item0 nm-model-band-container-item-visible\"]//ul[@class=\"nm-model-band-container-item-list\"]//li"))
+    public List<WebElement> suvAndWagonsList;
 
 
 

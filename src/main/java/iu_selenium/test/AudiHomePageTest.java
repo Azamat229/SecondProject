@@ -22,12 +22,12 @@ public class AudiHomePageTest {
     WebDriverWait wait = new WebDriverWait(driver, 100);
 
 
-    @Test
+    @Test (priority = 1)
     public void userIsOnHomePage() {
         driver.get("https://www.audiusa.com/us/web/en.html");
     }
 
-    @Test
+    @Test (priority = 2)
     public void clickSavAndWagons() {
         driver.get("https://www.audiusa.com/us/web/en.html");
         WebElement cookieButtonClick = wait.until(ExpectedConditions.visibilityOf(homePageObject.cookieSettingsButton));
@@ -38,7 +38,7 @@ public class AudiHomePageTest {
         firstItem.click();
     }
 
-    @Test
+    @Test (priority = 3)
     public void getAllPrices() throws InterruptedException {
 
         List<WebElement> secondItem = wait.until(ExpectedConditions.visibilityOfAllElements(homePageObject.suvAndWagonsList));
@@ -68,25 +68,15 @@ public class AudiHomePageTest {
 
     }
 
-    @org.testng.annotations.Test(priority = 1)
+    @Test(priority = 4)
     public void navigateToAudioUseSite() {
         driver.get("https://www.audiusa.com/us/web/en.html");
     }
 
-    @org.testng.annotations.Test(priority = 2)
-    public void settingUpPage() {
 
 
 
-        WebElement cookieButtonClick = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).cookieSettingsButton));
-        cookieButtonClick.click();
-        WebElement cookieAcceptButtonClick = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).cookieSettingsButtonAccept));
-        cookieAcceptButtonClick.click();
-
-    }
-
-
-    @org.testng.annotations.Test(priority = 3)
+    @Test(priority = 5)
     public void clickSUVsAndWagons() {
         WebElement firstItem = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).suvAndWagonsButton));
         firstItem.click();
@@ -94,7 +84,7 @@ public class AudiHomePageTest {
 
     }
 
-    @org.testng.annotations.Test(priority = 4)
+    @Test(priority = 6)
     public void validateTheCarTitleAndYear() {
 
         WebElement q52022 = wait.until(ExpectedConditions.visibilityOf(DetailPageObject.getDetailPage(driver).q52022));
@@ -113,7 +103,7 @@ public class AudiHomePageTest {
 
 //Detail car page
 
-    @Test(priority = 5)
+    @Test(priority = 7)
     public void userOnDetailPage() {
 
         WebElement buildButtonClick = wait.until(ExpectedConditions.visibilityOf(DetailPageObject.getDetailPage(driver).buildButton));

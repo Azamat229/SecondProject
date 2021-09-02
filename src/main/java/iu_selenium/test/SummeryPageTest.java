@@ -61,7 +61,7 @@ public class SummeryPageTest {
         Thread.sleep(1000);
 
         jse.executeScript("arguments[0].scrollIntoView();", color);
-        Thread.sleep(1000);
+        Thread.sleep(2000);
 
         wheel.click();
         Thread.sleep(1000);
