@@ -80,7 +80,7 @@ public class BuildCarPageTest3 {
 
         WebElement msrp = wait.until(ExpectedConditions.visibilityOf(buildPage.msrpLabel));
 
-        int sum = Integer.parseInt(((msrp.getText()).replace("$", "")).replace(",", "")) + Integer.parseInt((buildPage.additionalOpt.getText().replace("$", "")).replace(",", "")) + Integer.parseInt((buildPage.destCharge.getText().replace("$", "")).replace(",", ""));
+        int sum = Integer.parseInt((((msrp.getText()).replace("$", "")).replace(",", "")).replace(" ", "")) + Integer.parseInt((((buildPage.additionalOpt.getText()).replace("$", "")).replace(",", "")).replace(" ", "")) + Integer.parseInt((((buildPage.destCharge.getText()).replace("$", "")).replace(",", "")).replace(" ", ""));
 
         Assertions.assertEquals(sum, 45790);
     }
