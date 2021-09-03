@@ -4,6 +4,8 @@ import iu_selenium.pages.BuildCarPageObject;
 import iu_selenium.pages.HomePageObject;
 import iu_selenium.utils.Driver;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,6 +13,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class BuildPageTest2 {
 
@@ -18,6 +21,7 @@ public class BuildPageTest2 {
     WebDriverWait wait = new WebDriverWait(driver, 100);
     int sum = 0;
     int totalInt = 0;
+    Actions actions = new Actions(driver);
 
 
     @Test(priority = 1)
@@ -40,22 +44,26 @@ public class BuildPageTest2 {
     }
 
     @Test(priority = 3)
-    public void selectPremiumPlus() throws InterruptedException {
+    public void selectPremiumPlus(){
         // Test case 2 - Select Premium Plus 45 TFSI
-        WebElement premiumPlus = wait.until(ExpectedConditions.visibilityOf(BuildCarPageObject.getBuildPage(driver).secondCheckBox));
-        Thread.sleep(5000);
+        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+
+        WebElement premiumPlus = BuildCarPageObject.getBuildPage(driver).secondCheckBox;
+        JavascriptExecutor j = (JavascriptExecutor) driver;
+        j.executeScript("arguments[0].scrollIntoView({block: 'center', inline: 'nearest'})", premiumPlus);
+
         premiumPlus.click();
 
     }
 
     @Test(priority = 4)
-    public void clickViewKeyMSRPInfo() throws InterruptedException {
+    public void clickViewKeyMSRPInfo()  {
         WebElement viewKey = wait.until(ExpectedConditions.visibilityOf(BuildCarPageObject.getBuildPage(driver).viewKeyMSRPInfo));
         viewKey.click();
     }
 
     @Test(priority = 5)
-    public void validatePrices() throws InterruptedException {
+    public void validatePrices()  {
         List<WebElement> allPricePremiumPlus = wait.until(ExpectedConditions.visibilityOfAllElements(BuildCarPageObject.getBuildPage(driver).allPricesPremiumPlus));
         String[] expectedListOfPricePremiumPlus = {"$ 44,100", "$ 595", "$ 1,095"};
 
@@ -85,14 +93,14 @@ public class BuildPageTest2 {
     }
 
     @Test(priority = 6)
-    public void validateTotalPrice() throws InterruptedException {
+    public void validateTotalPrice()  {
         Assertions.assertEquals(sum, totalInt);
 
     }
 
 
     @Test(priority = 7)
-    public void closeMSRPInfo() throws InterruptedException {
+    public void closeMSRPInfo()  {
         WebElement closeViewKey = wait.until(ExpectedConditions.visibilityOf(BuildCarPageObject.getBuildPage(driver).closeViewKey));
         closeViewKey.click();
     }

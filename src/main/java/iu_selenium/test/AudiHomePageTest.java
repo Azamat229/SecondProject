@@ -30,6 +30,7 @@ public class AudiHomePageTest {
     @Test (priority = 2)
     public void clickSavAndWagons() {
         driver.get("https://www.audiusa.com/us/web/en.html");
+
         WebElement cookieButtonClick = wait.until(ExpectedConditions.visibilityOf(homePageObject.cookieSettingsButton));
         cookieButtonClick.click();
         WebElement cookieAcceptButtonClick = wait.until(ExpectedConditions.visibilityOf(homePageObject.cookieSettingsButtonAccept));

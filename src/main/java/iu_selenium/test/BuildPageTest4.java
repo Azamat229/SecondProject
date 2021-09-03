@@ -5,6 +5,7 @@ import iu_selenium.pages.HomePageObject;
 import iu_selenium.utils.Driver;
 import org.junit.jupiter.api.Assertions;
 //import org.junit.jupiter.api.Test;
+import org.openqa.selenium.JavascriptExecutor;
 import org.testng.annotations.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,12 +14,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class BuildPageTest4 {
 
 
     WebDriver driver = Driver.getDriver("chrome");
-    Actions actions = new Actions(driver);
     WebDriverWait wait = new WebDriverWait(driver, 100);
     WebElement conveniencePackageButton;
     WebElement rearSideButton;
@@ -44,38 +45,35 @@ public class BuildPageTest4 {
     }
 
     @Test(priority = 3)
-    public void addConveniencePackage() throws InterruptedException {
-        conveniencePackageButton = BuildCarPageObject.getBuildPage(driver).conveniencePackageButton;
-        actions.moveToElement(BuildCarPageObject.getBuildPage(driver).rearSideTitle);
-        Thread.sleep(100);
-        actions.perform();
+    public void addConveniencePackage() {
+        conveniencePackageButton = wait.until(ExpectedConditions.visibilityOf(BuildCarPageObject.getBuildPage(driver).conveniencePackageButton));
+        JavascriptExecutor j = (JavascriptExecutor) driver;
+        j.executeScript("arguments[0].scrollIntoView({block: 'center', inline: 'nearest'})", conveniencePackageButton);
         conveniencePackageButton.click();
-        Thread.sleep(3000);
-
 
     }
 
     @Test(priority = 4)
-    public void validateRemoveDisplayed() {
+    public void validateRemoveDisplayed() throws InterruptedException {
+        Thread.sleep(2000);
         Assertions.assertEquals(conveniencePackageButton.getText(), "Remove"); //Verify it is selected
 
 
     }
 
     @Test(priority = 5)
-    public void addRearSide() throws InterruptedException {
+    public void addRearSide() {
 
-        rearSideButton = BuildCarPageObject.getBuildPage(driver).rearSideButton;
-        actions.moveToElement(BuildCarPageObject.getBuildPage(driver).powerPanoramicTitle);
-        Thread.sleep(100);
-        actions.perform();
+        rearSideButton = wait.until(ExpectedConditions.visibilityOf(BuildCarPageObject.getBuildPage(driver).rearSideButton));
+        JavascriptExecutor j = (JavascriptExecutor) driver;
+        j.executeScript("arguments[0].scrollIntoView({block: 'center', inline: 'nearest'})", rearSideButton);
         rearSideButton.click();
-        Thread.sleep(3000);
-
     }
 
     @Test(priority = 6)
     public void verifyIsSelected() throws InterruptedException {
+        Thread.sleep(2000);
+
         Assertions.assertEquals(rearSideButton.getText(), "Remove"); //Verify it is selected
 
     }
