@@ -7,6 +7,8 @@ import iu_selenium.pages.BuildCarPageObject;
 import iu_selenium.pages.HomePageObject;
 import iu_selenium.utils.Driver;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,6 +16,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class BuildPageTest2 {
 
@@ -21,6 +24,7 @@ public class BuildPageTest2 {
     WebDriverWait wait = new WebDriverWait(driver, 100);
     int sum = 0;
     int totalInt = 0;
+    Actions actions = new Actions(driver);
 
 
 //    @Test(priority = 1)
@@ -45,8 +49,12 @@ public class BuildPageTest2 {
     @When("select premium plus")
     public void selectPremiumPlus() throws InterruptedException {
         // Test case 2 - Select Premium Plus 45 TFSI
-        WebElement premiumPlus = wait.until(ExpectedConditions.visibilityOf(BuildCarPageObject.getBuildPage(driver).secondCheckBox));
-        Thread.sleep(5000);
+        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+
+        WebElement premiumPlus = BuildCarPageObject.getBuildPage(driver).secondCheckBox;
+        JavascriptExecutor j = (JavascriptExecutor) driver;
+        j.executeScript("arguments[0].scrollIntoView({block: 'center', inline: 'nearest'})", premiumPlus);
+
         premiumPlus.click();
 
     }
