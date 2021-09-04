@@ -1,6 +1,11 @@
 package iu_selenium.test;
 
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import iu_selenium.pages.BuildCarPageObject;
+import iu_selenium.pages.DetailPageObject;
 import iu_selenium.pages.HomePageObject;
 import iu_selenium.utils.Driver;
 import org.junit.jupiter.api.Assertions;
@@ -16,25 +21,36 @@ public class BuildPageTest1 {
     WebDriver driver = Driver.getDriver("chrome");
     WebDriverWait wait = new WebDriverWait(driver, 100);
 
-    @Test(priority = 1)
-    public void userIsOnHomePage() {
-        driver.get("https://www.audiusa.com/us/web/en/models/q5/q5/2022/overview/build.html#");
-    }
+//    @Test(priority = 1)
+//    public void userIsOnHomePage() {
+//        driver.get("https://www.audiusa.com/us/web/en/models/q5/q5/2022/overview/build.html#");
+//    }
 
-    @Test(priority = 2)
-    public void settingUpPage() {
+//    @Test(priority = 2)
+//    public void settingUpPage() {
+//
+//        WebElement noticeWindowClose = wait.until(ExpectedConditions.visibilityOf(BuildCarPageObject.getBuildPage(driver).noticeWindow));
+//        noticeWindowClose.click();
+
+//        WebElement cookieButtonClick = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).cookieSettingsButton));
+//        cookieButtonClick.click();
+//        WebElement cookieAcceptButtonClick = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).cookieSettingsButtonAccept));
+//        cookieAcceptButtonClick.click();
+
+    //    }
+    @When("user click to build button")
+    public void userOnDetailPage() {
+
+
+        WebElement buildButtonClick = wait.until(ExpectedConditions.visibilityOf(DetailPageObject.getDetailPage(driver).buildButton));
+        buildButtonClick.click();
 
         WebElement noticeWindowClose = wait.until(ExpectedConditions.visibilityOf(BuildCarPageObject.getBuildPage(driver).noticeWindow));
         noticeWindowClose.click();
 
-        WebElement cookieButtonClick = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).cookieSettingsButton));
-        cookieButtonClick.click();
-        WebElement cookieAcceptButtonClick = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).cookieSettingsButtonAccept));
-        cookieAcceptButtonClick.click();
-
     }
 
-    @Test(priority = 3)
+    @Then("validate start price")
     public void validateStartPrice() throws InterruptedException {
         WebElement verifyStartingPrice = wait.until(ExpectedConditions.visibilityOf(BuildCarPageObject.getBuildPage(driver).verifyStartingPrice));
         String verifyStartingPriceStr = verifyStartingPrice.getText().trim();
@@ -44,7 +60,7 @@ public class BuildPageTest1 {
 
     }
 
-    @Test(priority = 4)
+    @And("validate 3 version of car")
     public void validateThreeVersionCar() {
 
         WebElement boxVersionsOfCar = wait.until(ExpectedConditions.visibilityOf(BuildCarPageObject.getBuildPage(driver).boxVersionsOfCar));
@@ -54,7 +70,7 @@ public class BuildPageTest1 {
 
     }
 
-    @Test(priority = 5)
+    @And("validate premium prices")
     public void validatePremiumPrices() {
 
         List<WebElement> firstPrice = wait.until(ExpectedConditions.visibilityOfAllElements(BuildCarPageObject.getBuildPage(driver).allPrices));
@@ -70,7 +86,7 @@ public class BuildPageTest1 {
         }
     }
 
-    @Test(priority = 6)
+    @And("validate 3 version of car dif options")
     public void validateThreeVersionHasDifOptions() {
 
         // 55 TFSI® e Plug-in hybrid

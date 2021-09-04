@@ -1,5 +1,9 @@
 package iu_selenium.test;
 
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import iu_selenium.pages.BuildCarPageObject;
 import iu_selenium.pages.DetailPageObject;
 import org.junit.jupiter.api.Assertions;
@@ -22,12 +26,14 @@ public class AudiHomePageTest {
     WebDriverWait wait = new WebDriverWait(driver, 100);
 
 
-    @Test (priority = 1)
+//    @Test (priority = 1)
+    @Given("user is on etsy home page")
     public void userIsOnHomePage() {
         driver.get("https://www.audiusa.com/us/web/en.html");
     }
 
-    @Test (priority = 2)
+
+    @When("user click save and wagons")
     public void clickSavAndWagons() {
         driver.get("https://www.audiusa.com/us/web/en.html");
         WebElement cookieButtonClick = wait.until(ExpectedConditions.visibilityOf(homePageObject.cookieSettingsButton));
@@ -38,7 +44,8 @@ public class AudiHomePageTest {
         firstItem.click();
     }
 
-    @Test (priority = 3)
+
+    @Then("user get all prices")
     public void getAllPrices() throws InterruptedException {
 
         List<WebElement> secondItem = wait.until(ExpectedConditions.visibilityOfAllElements(homePageObject.suvAndWagonsList));
@@ -68,23 +75,27 @@ public class AudiHomePageTest {
 
     }
 
-    @Test(priority = 4)
-    public void navigateToAudioUseSite() {
-        driver.get("https://www.audiusa.com/us/web/en.html");
-    }
+//    @When("user select 2022 Q5")
+//    public void navigateToAudioUseSite() {
+//        driver.get("https://www.audiusa.com/us/web/en.html");
+//    }
 
 
 
 
-    @Test(priority = 5)
+    @When("user select SUVs and Wagons")
     public void clickSUVsAndWagons() {
+        WebElement cookieButtonClick = wait.until(ExpectedConditions.visibilityOf(homePageObject.cookieSettingsButton));
+        cookieButtonClick.click();
+        WebElement cookieAcceptButtonClick = wait.until(ExpectedConditions.visibilityOf(homePageObject.cookieSettingsButtonAccept));
+        cookieAcceptButtonClick.click();
         WebElement firstItem = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).suvAndWagonsButton));
         firstItem.click();
 
 
     }
 
-    @Test(priority = 6)
+    @Then("user validate the car title and year")
     public void validateTheCarTitleAndYear() {
 
         WebElement q52022 = wait.until(ExpectedConditions.visibilityOf(DetailPageObject.getDetailPage(driver).q52022));
@@ -100,17 +111,4 @@ public class AudiHomePageTest {
 
     }
 
-
-//Detail car page
-
-    @Test(priority = 7)
-    public void userOnDetailPage() {
-
-        WebElement buildButtonClick = wait.until(ExpectedConditions.visibilityOf(DetailPageObject.getDetailPage(driver).buildButton));
-        buildButtonClick.click();
-
-        WebElement noticeWindowClose = wait.until(ExpectedConditions.visibilityOf(BuildCarPageObject.getBuildPage(driver).noticeWindow));
-        noticeWindowClose.click();
-
-    }
 }

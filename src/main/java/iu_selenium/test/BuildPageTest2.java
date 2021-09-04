@@ -1,5 +1,8 @@
 package iu_selenium.test;
 
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import iu_selenium.pages.BuildCarPageObject;
 import iu_selenium.pages.HomePageObject;
 import iu_selenium.utils.Driver;
@@ -20,26 +23,26 @@ public class BuildPageTest2 {
     int totalInt = 0;
 
 
-    @Test(priority = 1)
-    public void userIsOnBuildPage() {
-        driver.get("https://www.audiusa.com/us/web/en/models/q5/q5/2022/overview/build.html");
-    }
+//    @Test(priority = 1)
+//    public void userIsOnBuildPage() {
+//        driver.get("https://www.audiusa.com/us/web/en/models/q5/q5/2022/overview/build.html");
+//    }
 
 
-    @Test(priority = 2)
-    public void settingUpPage() {
+//    @Test(priority = 2)
+//    public void settingUpPage() {
+//
+//        WebElement noticeWindowClose = wait.until(ExpectedConditions.visibilityOf(BuildCarPageObject.getBuildPage(driver).noticeWindow));
+//        noticeWindowClose.click();
+//
+//        WebElement cookieButtonClick = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).cookieSettingsButton));
+//        cookieButtonClick.click();
+//        WebElement cookieAcceptButtonClick = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).cookieSettingsButtonAccept));
+//        cookieAcceptButtonClick.click();
 
-        WebElement noticeWindowClose = wait.until(ExpectedConditions.visibilityOf(BuildCarPageObject.getBuildPage(driver).noticeWindow));
-        noticeWindowClose.click();
+//    }
 
-        WebElement cookieButtonClick = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).cookieSettingsButton));
-        cookieButtonClick.click();
-        WebElement cookieAcceptButtonClick = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).cookieSettingsButtonAccept));
-        cookieAcceptButtonClick.click();
-
-    }
-
-    @Test(priority = 3)
+    @When("select premium plus")
     public void selectPremiumPlus() throws InterruptedException {
         // Test case 2 - Select Premium Plus 45 TFSI
         WebElement premiumPlus = wait.until(ExpectedConditions.visibilityOf(BuildCarPageObject.getBuildPage(driver).secondCheckBox));
@@ -48,13 +51,13 @@ public class BuildPageTest2 {
 
     }
 
-    @Test(priority = 4)
+    @And("click view key MSRP info")
     public void clickViewKeyMSRPInfo() throws InterruptedException {
         WebElement viewKey = wait.until(ExpectedConditions.visibilityOf(BuildCarPageObject.getBuildPage(driver).viewKeyMSRPInfo));
         viewKey.click();
     }
 
-    @Test(priority = 5)
+    @Then("validate prices")
     public void validatePrices() throws InterruptedException {
         List<WebElement> allPricePremiumPlus = wait.until(ExpectedConditions.visibilityOfAllElements(BuildCarPageObject.getBuildPage(driver).allPricesPremiumPlus));
         String[] expectedListOfPricePremiumPlus = {"$ 44,100", "$ 595", "$ 1,095"};
@@ -84,14 +87,14 @@ public class BuildPageTest2 {
 
     }
 
-    @Test(priority = 6)
+    @And("validate total price")
     public void validateTotalPrice() throws InterruptedException {
         Assertions.assertEquals(sum, totalInt);
 
     }
 
 
-    @Test(priority = 7)
+    @And("close MSR info")
     public void closeMSRPInfo() throws InterruptedException {
         WebElement closeViewKey = wait.until(ExpectedConditions.visibilityOf(BuildCarPageObject.getBuildPage(driver).closeViewKey));
         closeViewKey.click();
