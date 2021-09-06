@@ -3,6 +3,9 @@ package iu_selenium.test;
 import iu_selenium.pages.BuildCarPageObject;
 import iu_selenium.pages.HomePageObject;
 import iu_selenium.utils.Driver;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.junit.jupiter.api.Assertions;
 //import org.junit.jupiter.api.Test;
 import org.openqa.selenium.JavascriptExecutor;
@@ -18,6 +21,12 @@ import java.util.concurrent.TimeUnit;
 
 public class BuildPageTest4 {
 
+    {
+        String log4jConfPath = "log4j.properties";
+        PropertyConfigurator.configure(log4jConfPath);
+    }
+
+    private final Logger LOG = LogManager.getLogger(BuildPageTest2.class);
 
     WebDriver driver = Driver.getDriver("chrome");
     WebDriverWait wait = new WebDriverWait(driver, 100);

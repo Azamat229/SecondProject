@@ -3,7 +3,7 @@ Feature: Etsy search functionality
 
   Scenario: first test case
     Given user is on etsy home page
-#    When user click save and wagons
+#    When user click sav and wagons
 #    Then user get all prices
     When  user select SUVs and Wagons
     Then user validate the car title and year
@@ -29,6 +29,10 @@ Feature: Etsy search functionality
     When user chooses wheel
     Then validate if the text on wheel label is equal to "19\" 5-double-arm design wheels, bi-color finish, with all-season tires $800"
 
-
+#  Scenario: fifth test case
+#    Then validate if MSRP from build page is equal to MSRP from summary page
+#    And validate if sum of equipments is equal to 2845
+#    And validate total price is 48040
+#
 
 

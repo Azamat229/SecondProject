@@ -6,6 +6,9 @@ import io.cucumber.java.en.When;
 import iu_selenium.pages.BuildCarPageObject;
 import iu_selenium.pages.HomePageObject;
 import iu_selenium.utils.Driver;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.interactions.Actions;
@@ -21,33 +24,22 @@ import java.util.concurrent.TimeUnit;
 
 public class BuildPageTest2 {
 
+    {
+        String log4jConfPath = "log4j.properties";
+        PropertyConfigurator.configure(log4jConfPath);
+    }
+
+    private final Logger LOG = LogManager.getLogger(BuildPageTest2.class);
+
+
     WebDriver driver = Driver.getDriver("chrome");
     WebDriverWait wait = new WebDriverWait(driver, 100);
     int sum = 0;
     int totalInt = 0;
 
 
-//    @Test(priority = 1)
-//    public void userIsOnBuildPage() {
-//        driver.get("https://www.audiusa.com/us/web/en/models/q5/q5/2022/overview/build.html");
-//    }
-
-
-//    @Test(priority = 2)
-//    public void settingUpPage() {
-//
-//        WebElement noticeWindowClose = wait.until(ExpectedConditions.visibilityOf(BuildCarPageObject.getBuildPage(driver).noticeWindow));
-//        noticeWindowClose.click();
-//
-//        WebElement cookieButtonClick = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).cookieSettingsButton));
-//        cookieButtonClick.click();
-//        WebElement cookieAcceptButtonClick = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).cookieSettingsButtonAccept));
-//        cookieAcceptButtonClick.click();
-
-//    }
-
     @When("select premium plus")
-    public void selectPremiumPlus() throws InterruptedException {
+    public void selectPremiumPlus() {
         // Test case 2 - Select Premium Plus 45 TFSI
         driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 
@@ -57,12 +49,18 @@ public class BuildPageTest2 {
 
         premiumPlus.click();
 
+        LOG.info("user selected premium plus");
+
+
     }
 
     @And("click view key MSRP info")
-    public void clickViewKeyMSRPInfo() throws InterruptedException {
+    public void clickViewKeyMSRPInfo() {
         WebElement viewKey = wait.until(ExpectedConditions.visibilityOf(BuildCarPageObject.getBuildPage(driver).viewKeyMSRPInfo));
         viewKey.click();
+
+        LOG.info("user clicked MSRP info");
+
     }
 
     @Then("validate prices of {string}, {string}, {string}")
@@ -91,12 +89,16 @@ public class BuildPageTest2 {
         totalInt = Integer.parseInt(total);
         System.out.println("2 Total:" + totalInt);
 
+        LOG.info("validated prices");
+
 
     }
 
     @And("validate total price")
     public void validateTotalPrice() throws InterruptedException {
         Assertions.assertEquals(sum, totalInt);
+
+        LOG.info("validated total price");
 
     }
 
@@ -105,6 +107,9 @@ public class BuildPageTest2 {
     public void closeMSRPInfo() throws InterruptedException {
         WebElement closeViewKey = wait.until(ExpectedConditions.visibilityOf(BuildCarPageObject.getBuildPage(driver).closeViewKey));
         closeViewKey.click();
+
+        LOG.info("user closed MSRP info");
+
     }
 
 

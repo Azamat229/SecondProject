@@ -6,6 +6,9 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import iu_selenium.pages.BuildCarPageObject;
 import iu_selenium.pages.DetailPageObject;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import iu_selenium.pages.HomePageObject;
@@ -21,6 +24,14 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class AudiHomePageTest {
+    {
+        String log4jConfPath = "log4j.properties";
+        PropertyConfigurator.configure(log4jConfPath);
+    }
+
+    private final Logger LOG = LogManager.getLogger(AudiHomePageTest.class);
+
+
     WebDriver driver = Driver.getDriver("chrome");
     HomePageObject homePageObject = HomePageObject.getHomePage(driver);
     WebDriverWait wait = new WebDriverWait(driver, 100);
@@ -30,19 +41,22 @@ public class AudiHomePageTest {
     @Given("user is on etsy home page")
     public void userIsOnHomePage() {
         driver.get("https://www.audiusa.com/us/web/en.html");
+        LOG.info("user on home page");
+
     }
 
 
-    @When("user click save and wagons")
+    @When("user click sav and wagons")
     public void clickSavAndWagons() {
-
-
         WebElement cookieButtonClick = wait.until(ExpectedConditions.visibilityOf(homePageObject.cookieSettingsButton));
         cookieButtonClick.click();
         WebElement cookieAcceptButtonClick = wait.until(ExpectedConditions.visibilityOf(homePageObject.cookieSettingsButtonAccept));
         cookieAcceptButtonClick.click();
         WebElement firstItem = wait.until(ExpectedConditions.visibilityOf(homePageObject.suvAndWagonsButton));
         firstItem.click();
+
+        LOG.info("user clicked on cars button SAV and Wagons");
+
     }
 
 
@@ -73,6 +87,8 @@ public class AudiHomePageTest {
             firstItem6.click();
         }
         System.out.println(ans);
+        LOG.info("got all prices");
+
 
     }
 
@@ -93,6 +109,8 @@ public class AudiHomePageTest {
         WebElement firstItem = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).suvAndWagonsButton));
         firstItem.click();
 
+        LOG.info("user clicked Audi Q5");
+
     }
 
     @Then("user validate the car title and year")
@@ -108,6 +126,8 @@ public class AudiHomePageTest {
         WebElement titleQ52022 = wait.until(ExpectedConditions.visibilityOf(DetailPageObject.getDetailPage(driver).titleQ52022));
 
         Assertions.assertEquals(titleQ52022.getText().trim(), verifyCarModel);
+
+        LOG.info("validated the car title and year");
 
     }
 

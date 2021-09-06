@@ -3,6 +3,9 @@ package iu_selenium.test;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import iu_selenium.pages.BuildCarPageObject;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import iu_selenium.utils.Driver;
@@ -18,6 +21,14 @@ import java.util.concurrent.TimeUnit;
 
 
 public class BuildCarPageTest3 {
+
+    {
+        String log4jConfPath = "log4j.properties";
+        PropertyConfigurator.configure(log4jConfPath);
+    }
+
+    private final Logger LOG = LogManager.getLogger(AudiHomePageTest.class);
+
     WebDriver driver = Driver.getDriver("chrome");
     WebDriverWait wait = new WebDriverWait(driver, 100);
     BuildCarPageObject buildPage = BuildCarPageObject.getBuildPage(driver);
@@ -32,6 +43,9 @@ public class BuildCarPageTest3 {
         action.moveToElement(buildPage.wheel).perform();
 
         action.moveToElement(buildPage.priceOfColor).perform();
+
+        LOG.info("user hovered green color");
+
     }
 
     @Then("validate if color name is {string}, and price is {string}")
@@ -41,11 +55,17 @@ public class BuildCarPageTest3 {
 
         Assertions.assertEquals(colorName, nameOfColor.getText());
         Assertions.assertEquals(priceOfColor, priceOfColorText.getText());
+
+        LOG.info("validated color name and price name");
+
     }
 
     @When("user clicks green color")
     public void validateExteriorColor() throws InterruptedException {
         buildPage.priceOfColor.click();
+
+        LOG.info("user clicked green color of car");
+
         Thread.sleep(1000);
     }
 
@@ -61,6 +81,9 @@ public class BuildCarPageTest3 {
         int sum = Integer.parseInt((((msrp.getText()).replace("$", "")).replace(",", "")).replace(" ", "")) + Integer.parseInt((((buildPage.additionalOpt.getText()).replace("$", "")).replace(",", "")).replace(" ", "")) + Integer.parseInt((((buildPage.destCharge.getText()).replace("$", "")).replace(",", "")).replace(" ", ""));
 
         Assertions.assertEquals(sum, num);
+
+        LOG.info("validated total sum");
+
     }
 
     @When("user chooses wheel")
@@ -71,6 +94,9 @@ public class BuildCarPageTest3 {
         jse.executeScript("arguments[0].scrollIntoView();", buildPage.priceOfColor);
 
         buildPage.wheel.click();
+
+        LOG.info("user clicked wheel button");
+
     }
 
     @Then("validate if the text on wheel label is equal to {string}")
@@ -79,6 +105,9 @@ public class BuildCarPageTest3 {
         WebElement price = wait.until(ExpectedConditions.visibilityOf(buildPage.priceOfWheel));
         String wheelInfo = type.getText() + " " + price.getText();
         Assertions.assertEquals(nameOfWheel, wheelInfo);
+
+        LOG.info("validated wheel text");
+
     }
 
 }

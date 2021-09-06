@@ -8,6 +8,9 @@ import iu_selenium.pages.BuildCarPageObject;
 import iu_selenium.pages.DetailPageObject;
 import iu_selenium.pages.HomePageObject;
 import iu_selenium.utils.Driver;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.junit.jupiter.api.Assertions;
 import org.testng.annotations.Test;
 import org.openqa.selenium.WebDriver;
@@ -18,6 +21,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
 
 public class BuildPageTest1 {
+
+    {
+        String log4jConfPath = "log4j.properties";
+        PropertyConfigurator.configure(log4jConfPath);
+    }
+
+    private final Logger LOG = LogManager.getLogger(BuildPageTest2.class);
+
     WebDriver driver = Driver.getDriver("chrome");
     WebDriverWait wait = new WebDriverWait(driver, 100);
 
@@ -48,6 +59,8 @@ public class BuildPageTest1 {
         WebElement noticeWindowClose = wait.until(ExpectedConditions.visibilityOf(BuildCarPageObject.getBuildPage(driver).noticeWindow));
         noticeWindowClose.click();
 
+        LOG.info("user on detail page");
+
     }
 
     @Then("validate start price")
@@ -58,6 +71,9 @@ public class BuildPageTest1 {
         System.out.println(verifyStartingPriceStr.substring(2) + " " + expectedPrice);
         Assertions.assertEquals(verifyStartingPriceStr, expectedPrice);
 
+        LOG.info("validated start price");
+
+
     }
 
     @And("validate 3 version of car")
@@ -67,6 +83,9 @@ public class BuildPageTest1 {
         String amountOfVersion = boxVersionsOfCar.getAttribute("data-trimline-counter");
         System.out.println(amountOfVersion + " " + "3");
         Assertions.assertEquals(amountOfVersion, "3");
+
+        LOG.info("validated 3 version of car");
+
 
     }
 
@@ -84,6 +103,9 @@ public class BuildPageTest1 {
             Assertions.assertEquals(firstPrice1Clear, expectedListOfPrice[i]);
 
         }
+
+        LOG.info("validated premium prices");
+
     }
 
     @And("validate 3 version of car dif options")
@@ -93,6 +115,9 @@ public class BuildPageTest1 {
         List<WebElement> optionOfCar = wait.until(ExpectedConditions.visibilityOfAllElements(BuildCarPageObject.getBuildPage(driver).optionOfCar));
         int sizeOption = optionOfCar.size();
         Assertions.assertEquals(sizeOption, 3);// изменить
+
+        LOG.info("validated 3 version of car dif options");
+
     }
 
 
