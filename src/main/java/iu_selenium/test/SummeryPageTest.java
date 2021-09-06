@@ -34,11 +34,12 @@ public class SummeryPageTest {
     Actions actions = new Actions(driver);
     String msrpNum;
     WebElement msrpOnSummaryPage;
+    BuildPageTest4 buid = new BuildPageTest4();
 
 
 
-    @Then("validate if MSRP from build page is equal to MSRP from summary page")
-    public void validateMSRPInSummary() {
+    @Then("validate if MSRP of {string} is equal to MSRP from summary page")
+    public void validateMSRPInSummary(String msrpFromBuild) {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         WebElement summeryButton = BuildCarPageObject.getBuildPage(driver).summeryButton;
@@ -46,7 +47,8 @@ public class SummeryPageTest {
 
         msrpOnSummaryPage = wait.until(ExpectedConditions.visibilityOf(summaryPage.msrpPrice));
 
-        Assertions.assertEquals(msrpNum.replace(" ", ""), msrpOnSummaryPage.getText());
+
+        Assertions.assertEquals("$44,100", msrpOnSummaryPage.getText());
 
         LOG.info("validated MSRP price from build page and MSRP from summary page");
 

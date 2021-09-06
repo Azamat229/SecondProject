@@ -34,6 +34,7 @@ public class BuildPageTest4 {
 
 
 
+
     @When("user click add convenience package button")
     public void addConveniencePackage() {
         conveniencePackageButton = wait.until(ExpectedConditions.visibilityOf(BuildCarPageObject.getBuildPage(driver).conveniencePackageButton));
@@ -141,7 +142,11 @@ public class BuildPageTest4 {
         WebElement closeViewKey = wait.until(ExpectedConditions.visibilityOf(BuildCarPageObject.getBuildPage(driver).closeViewKey));
         closeViewKey.click();
 
+
+
         LOG.info("verify the total price");
 
     }
+
+
 }

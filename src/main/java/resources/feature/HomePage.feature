@@ -38,7 +38,7 @@ Feature: Etsy search functionality
     And verify the total prices
 
   Scenario: fifth test case
-    Then validate if MSRP from build page is equal to MSRP from summary page
+    Then validate if MSRP of "$44,100" is equal to MSRP from summary page
     And validate if sum of equipments is equal to 2845
     And validate total price is 48040
 
