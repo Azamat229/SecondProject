@@ -22,4 +22,12 @@ Feature: Etsy search functionality
     And validate total price
     And close MSR info
 
+  Scenario: third test case
+    When user highlights color
+    Then validate if color name is "District Green metallic", and price is "$ 595"
+    When user clicks green color
+    Then validate if total sum is equal to 45790
+    When user chooses wheel
+    Then validate if the text on wheel label is equal to "19\" 5-double-arm design wheels, bi-color finish, with all-season tires $800"
+
 

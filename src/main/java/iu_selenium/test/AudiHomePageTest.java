@@ -93,7 +93,6 @@ public class AudiHomePageTest {
         WebElement firstItem = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).suvAndWagonsButton));
         firstItem.click();
 
-
     }
 
     @Then("user validate the car title and year")

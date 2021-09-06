@@ -1,5 +1,7 @@
 package iu_selenium.test;
 
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import iu_selenium.pages.BuildCarPageObject;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
@@ -30,27 +32,9 @@ public class BuildCarPageTest3 {
     JavascriptExecutor jse = (JavascriptExecutor)driver;
 
 
-    @Test (priority = 1)
-    public void userIsOnHomePage() {
-        driver.get("https://www.audiusa.com/us/web/en/models/q5/q5/2022/overview/build.html#");
-    }
 
-    @Test (priority = 2)
+    @When("user highlights color")
     public void highlightColorPicker() {
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
-        WebElement closeButton = buildPage.closeButton;
-
-
-        closeButton.click();
-
-        WebElement cookieButtonClick = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).cookieSettingsButton));
-        cookieButtonClick.click();
-        WebElement cookieAcceptButtonClick = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).cookieSettingsButtonAccept));
-        cookieAcceptButtonClick.click();
-
-
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         Actions action = new Actions(driver);
         action.moveToElement(buildPage.wheel).perform();
@@ -58,22 +42,22 @@ public class BuildCarPageTest3 {
         action.moveToElement(buildPage.priceOfColor).perform();
     }
 
-    @Test (priority = 3)
-    public void validateColorName() {
+    @Then("validate if color name is {string}, and price is {string}")
+    public void validateColorName(String colorName, String priceOfColor) {
         WebElement nameOfColor = wait.until(ExpectedConditions.visibilityOf(buildPage.nameColor));
         WebElement priceOfColorText = wait.until(ExpectedConditions.visibilityOf(buildPage.priceColorText));
 
-        Assertions.assertEquals("District Green metallic", nameOfColor.getText());
-        Assertions.assertEquals("$ 595", priceOfColorText.getText());
+        Assertions.assertEquals(colorName, nameOfColor.getText());
+        Assertions.assertEquals(priceOfColor, priceOfColorText.getText());
     }
 
-    @Test (priority = 4)
+    @When("user clicks green color")
     public void validateExteriorColor() {
         buildPage.priceOfColor.click();
     }
 
-    @Test (priority = 5)
-    public  void validateTotalPrice() {
+    @Then("validate if total sum is equal to {int}")
+    public void validateTotalPrice(int num) {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         buildPage.viewTotalPriceButton.click();
@@ -82,10 +66,10 @@ public class BuildCarPageTest3 {
 
         int sum = Integer.parseInt((((msrp.getText()).replace("$", "")).replace(",", "")).replace(" ", "")) + Integer.parseInt((((buildPage.additionalOpt.getText()).replace("$", "")).replace(",", "")).replace(" ", "")) + Integer.parseInt((((buildPage.destCharge.getText()).replace("$", "")).replace(",", "")).replace(" ", ""));
 
-        Assertions.assertEquals(sum, 45790);
+        Assertions.assertEquals(sum, num);
     }
 
-    @Test (priority = 6)
+    @When("user chooses wheel")
     public  void click19Wheel() {
         WebElement butClose = buildPage.closePopUp;
         butClose.click();
@@ -95,12 +79,12 @@ public class BuildCarPageTest3 {
         buildPage.wheel.click();
     }
 
-    @Test (priority = 7)
-    public void validateWheel() {
+    @Then("validate if the text on wheel label is equal to {string}")
+    public void validateWheel(String nameOfWheel) {
         WebElement type = wait.until(ExpectedConditions.visibilityOf(buildPage.typeOfWheel));
         WebElement price = wait.until(ExpectedConditions.visibilityOf(buildPage.priceOfWheel));
         String wheelInfo = type.getText() + " " + price.getText();
-        Assertions.assertEquals("19\" 5-double-arm design wheels, bi-color finish, with all-season tires $800", wheelInfo);
+        Assertions.assertEquals(nameOfWheel, wheelInfo);
     }
 
 }
