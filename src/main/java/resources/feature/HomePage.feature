@@ -17,9 +17,10 @@ Feature: Etsy search functionality
   Scenario: second test case
     When select premium plus
     And click view key MSRP info
-    Then validate prices
-      # latter I will add the Array list
+    Then validate prices of "$ 44,100", "$ 595", "$ 1,095"
     And validate total price
     And close MSR info
+
+
 
 

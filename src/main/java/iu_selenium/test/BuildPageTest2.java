@@ -15,6 +15,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -24,7 +25,6 @@ public class BuildPageTest2 {
     WebDriverWait wait = new WebDriverWait(driver, 100);
     int sum = 0;
     int totalInt = 0;
-    Actions actions = new Actions(driver);
 
 
 //    @Test(priority = 1)
@@ -65,15 +65,16 @@ public class BuildPageTest2 {
         viewKey.click();
     }
 
-    @Then("validate prices")
-    public void validatePrices() throws InterruptedException {
+    @Then("validate prices of {string}, {string}, {string}")
+    public void validatePrices(String p1, String p2, String p3) {
         List<WebElement> allPricePremiumPlus = wait.until(ExpectedConditions.visibilityOfAllElements(BuildCarPageObject.getBuildPage(driver).allPricesPremiumPlus));
-        String[] expectedListOfPricePremiumPlus = {"$ 44,100", "$ 595", "$ 1,095"};
+        System.out.println(p1 + " " + p2 + " " + p3);
+        String[] allPrices = {p1, p2, p3};
 
         for (int i = 0; i < allPricePremiumPlus.size() - 1; i++) {
-            System.out.println("A:" + allPricePremiumPlus.get(i).getText().trim() + " " + expectedListOfPricePremiumPlus[i]);
+            System.out.println("A:" + allPricePremiumPlus.get(i).getText().trim() + " " + allPrices[i]);
 
-            Assertions.assertEquals(allPricePremiumPlus.get(i).getText().trim(), expectedListOfPricePremiumPlus[i]);
+            Assertions.assertEquals(allPricePremiumPlus.get(i).getText().trim(), allPrices[i]);
             String price = allPricePremiumPlus.get(i).getText().trim();
             price = price.substring(2, price.length());
             price = price.replace(",", "");
@@ -89,8 +90,6 @@ public class BuildPageTest2 {
         total = total.replace(",", "").replace("$", "").replace(" ", "");
         totalInt = Integer.parseInt(total);
         System.out.println("2 Total:" + totalInt);
-
-        // Validate Total price is Base price + Additonal Options + Destination Charge
 
 
     }
