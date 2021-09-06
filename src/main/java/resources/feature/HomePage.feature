@@ -17,8 +17,7 @@ Feature: Etsy search functionality
   Scenario: second test case
     When select premium plus
     And click view key MSRP info
-    Then validate prices
-      # latter I will add the Array list
+    Then validate prices of "$ 44,100", "$ 595", "$ 1,095"
     And validate total price
     And close MSR info
 
@@ -29,5 +28,7 @@ Feature: Etsy search functionality
     Then validate if total sum is equal to 45790
     When user chooses wheel
     Then validate if the text on wheel label is equal to "19\" 5-double-arm design wheels, bi-color finish, with all-season tires $800"
+
+
 
 
