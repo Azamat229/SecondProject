@@ -3,26 +3,18 @@ package iu_selenium.test;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import iu_selenium.pages.BuildCarPageObject;
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
-//import org.junit.jupiter.api.Test;
 import org.openqa.selenium.*;
-import iu_selenium.pages.HomePageObject;
-//import api.pages.pages.EtsyResultsPage;
 import iu_selenium.utils.Driver;
-//import org.junit.Assert;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.Test;
 
-
-import java.util.List;
-import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
 
-import static org.testng.TestRunner.PriorityWeight.priority;
+
 
 
 public class BuildCarPageTest3 {
@@ -52,9 +44,11 @@ public class BuildCarPageTest3 {
     }
 
     @When("user clicks green color")
-    public void validateExteriorColor() {
+    public void validateExteriorColor() throws InterruptedException {
         buildPage.priceOfColor.click();
+        Thread.sleep(1000);
     }
+
 
     @Then("validate if total sum is equal to {int}")
     public void validateTotalPrice(int num) {
