@@ -1,10 +1,8 @@
 package iu_selenium.test;
 
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import iu_selenium.pages.BuildCarPageObject;
 import iu_selenium.pages.DetailPageObject;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -12,13 +10,10 @@ import org.apache.log4j.PropertyConfigurator;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import iu_selenium.pages.HomePageObject;
-//import api.pages.pages.EtsyResultsPage;
 import iu_selenium.utils.Driver;
-//import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.Test;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -37,7 +32,6 @@ public class AudiHomePageTest {
     WebDriverWait wait = new WebDriverWait(driver, 100);
 
 
-//    @Test (priority = 1)
     @Given("user is on etsy home page")
     public void userIsOnHomePage() {
         driver.get("https://www.audiusa.com/us/web/en.html");
@@ -92,10 +86,6 @@ public class AudiHomePageTest {
 
     }
 
-//    @When("user select 2022 Q5")
-//    public void navigateToAudioUseSite() {
-//        driver.get("https://www.audiusa.com/us/web/en.html");
-//    }
 
 
 

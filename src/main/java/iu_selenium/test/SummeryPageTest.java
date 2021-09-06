@@ -7,23 +7,14 @@ import iu_selenium.pages.SummeryPageObject;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
-//import org.junit.jupiter.api.Test;
 import org.openqa.selenium.*;
-import iu_selenium.pages.HomePageObject;
-//import api.pages.pages.EtsyResultsPage;
 import iu_selenium.utils.Driver;
-//import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.Test;
 
-
-import java.util.List;
-import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
 
 public class SummeryPageTest {
@@ -63,6 +54,7 @@ public class SummeryPageTest {
 
     @And("validate if sum of equipments is equal to {int}")
     public void validateEquipmentTotalPrice(int totalPrice) {
+
 
         int coloPrice = Integer.parseInt((summaryPage.colorPrice.getText().replace("$", "")).replace(",", ""));
 

@@ -1,23 +1,21 @@
 package iu_selenium.test;
 
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import iu_selenium.pages.BuildCarPageObject;
-import iu_selenium.pages.HomePageObject;
 import iu_selenium.utils.Driver;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.junit.jupiter.api.Assertions;
-//import org.junit.jupiter.api.Test;
 import org.openqa.selenium.JavascriptExecutor;
-import org.testng.annotations.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class BuildPageTest4 {
 
@@ -29,70 +27,70 @@ public class BuildPageTest4 {
     private final Logger LOG = LogManager.getLogger(BuildPageTest2.class);
 
     WebDriver driver = Driver.getDriver("chrome");
-    WebDriverWait wait = new WebDriverWait(driver, 100);
+    WebDriverWait wait = new WebDriverWait(driver, 1000);
     WebElement conveniencePackageButton;
     WebElement rearSideButton;
+    String removeStr = "Remove";
 
 
-    @Test(priority = 1)
-    public void userIsOnBuildPage() {
-        driver.get("https://www.audiusa.com/us/web/en/models/q5/q5/2022/overview/build.html");
-    }
 
-
-    @Test(priority = 2)
-    public void settingUpPage() {
-
-        WebElement noticeWindowClose = wait.until(ExpectedConditions.visibilityOf(BuildCarPageObject.getBuildPage(driver).noticeWindow));
-        noticeWindowClose.click();
-
-        WebElement cookieButtonClick = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).cookieSettingsButton));
-        cookieButtonClick.click();
-        WebElement cookieAcceptButtonClick = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).cookieSettingsButtonAccept));
-        cookieAcceptButtonClick.click();
-
-    }
-
-    @Test(priority = 3)
+    @When("user click add convenience package button")
     public void addConveniencePackage() {
         conveniencePackageButton = wait.until(ExpectedConditions.visibilityOf(BuildCarPageObject.getBuildPage(driver).conveniencePackageButton));
         JavascriptExecutor j = (JavascriptExecutor) driver;
         j.executeScript("arguments[0].scrollIntoView({block: 'center', inline: 'nearest'})", conveniencePackageButton);
         conveniencePackageButton.click();
+        LOG.info("user click to add convenience package button");
 
     }
 
-    @Test(priority = 4)
+    @Then("validate remove text is displayed")
     public void validateRemoveDisplayed() throws InterruptedException {
         Thread.sleep(2000);
-        Assertions.assertEquals(conveniencePackageButton.getText(), "Remove"); //Verify it is selected
+        Assertions.assertEquals(conveniencePackageButton.getText(), removeStr);
 
 
+        LOG.info("validate remove test is displayed");
     }
 
-    @Test(priority = 5)
+    @When("user click add rear side button")
     public void addRearSide() {
 
         rearSideButton = wait.until(ExpectedConditions.visibilityOf(BuildCarPageObject.getBuildPage(driver).rearSideButton));
         JavascriptExecutor j = (JavascriptExecutor) driver;
         j.executeScript("arguments[0].scrollIntoView({block: 'center', inline: 'nearest'})", rearSideButton);
         rearSideButton.click();
+
+        LOG.info("user click to add rear side button");
     }
 
-    @Test(priority = 6)
+    @Then("validate remove text is displayed2")
     public void verifyIsSelected() throws InterruptedException {
-        Thread.sleep(2000);
+        Thread.sleep(2000); // I tried to use other wait methods, but they didn't help
 
-        Assertions.assertEquals(rearSideButton.getText(), "Remove"); //Verify it is selected
+        Assertions.assertEquals(rearSideButton.getText(), removeStr);
+
+        LOG.info("validate remove test is displayed 2");
 
     }
 
-    @Test(priority = 7)
+    @And("verify sum of options")
     public void verifyColor_Convenience_RearSide_Sum() {
 
+
+
         WebElement colorPrice = wait.until(ExpectedConditions.visibilityOf(BuildCarPageObject.getBuildPage(driver).colorPrice));
+
         String colorPriceTxt = colorPrice.getText().trim().replace("$", "").replace(" ", "");
         int colorPriceInt = Integer.parseInt(colorPriceTxt);
+
+
+        WebElement whilesPrice = wait.until(ExpectedConditions.visibilityOf(BuildCarPageObject.getBuildPage(driver).wheelsPrice));
+
+        String whilesPriceTxt = whilesPrice.getText().trim().replace("$", "");
+        int whilesPriceInt = Integer.parseInt(whilesPriceTxt);
+
+
 
         WebElement conveniencePrice = wait.until(ExpectedConditions.visibilityOf(BuildCarPageObject.getBuildPage(driver).conveniencePrice));
         String conveniencePriceTxt = conveniencePrice.getText().trim().replace("$", "").replace(",", "");
@@ -102,20 +100,22 @@ public class BuildPageTest4 {
         String rearPriceTxt = rearPrice.getText().trim().replace("$", "");
         int rearPriceInt = Integer.parseInt(rearPriceTxt);
 
-        int sumPrice = colorPriceInt + conveniencePriceInt + rearPriceInt;
+        int sumPrice = colorPriceInt + conveniencePriceInt + rearPriceInt + whilesPriceInt;
+        System.out.println("sumPrice"+sumPrice);
         WebElement viewKeyMSRPInfo = wait.until(ExpectedConditions.visibilityOf(BuildCarPageObject.getBuildPage(driver).viewKeyMSRPInfo));
         viewKeyMSRPInfo.click();
 
         WebElement additionalOptionPrice = wait.until(ExpectedConditions.visibilityOf(BuildCarPageObject.getBuildPage(driver).additionalOptionPrice));
         String additionalOptionPriceTxt = additionalOptionPrice.getText().trim().replace("$", "").replace(",", "");
         int additionalOptionPriceInt = Integer.parseInt(additionalOptionPriceTxt);
+        System.out.println("addtional"+additionalOptionPriceInt);
 
         Assertions.assertEquals(sumPrice, additionalOptionPriceInt);
 
-
+        LOG.info("validate sum of options");
     }
 
-    @Test(priority = 8)
+    @And("verify the total prices")
     public void verifyTotalPrice() {
 
         List<WebElement> allPricePremiumPlus = wait.until(ExpectedConditions.visibilityOfAllElements(BuildCarPageObject.getBuildPage(driver).allPricesPremiumPlus));
@@ -127,19 +127,21 @@ public class BuildPageTest4 {
             int intPrice = Integer.parseInt(price);
             sum += intPrice;
 
-            System.out.println("Price" + intPrice);
+//            System.out.println("Price" + intPrice);
         }
 
-        System.out.println(sum);
+//        System.out.println(sum);
         String total = allPricePremiumPlus.get(allPricePremiumPlus.size() - 1).getText().trim();
 
         total = total.replace(",", "").replace("$", "");
-        System.out.println("1 Total:" + total);
         int totalInt = Integer.parseInt(total);
-        System.out.println("2 Total:" + totalInt);
+//        System.out.println("Total:" + totalInt);
 
         Assertions.assertEquals(sum, totalInt);
+        WebElement closeViewKey = wait.until(ExpectedConditions.visibilityOf(BuildCarPageObject.getBuildPage(driver).closeViewKey));
+        closeViewKey.click();
 
+        LOG.info("verify the total price");
 
     }
 }

@@ -95,7 +95,7 @@ public class BuildCarPageObject {
     public List<WebElement> allPricesPremiumPlus;
 
     @FindBy(xpath = "//div[@class=\"audi-basket_price-details-layer__close_button\"]//button")
-    public WebElement closeViewKey;
+    public WebElement closeViewKey; // //body[1]/feature-app[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[2]/div[1]/button[1]
 
     @FindBy(xpath = "//*[@id=\"dbad:audi:basket\"]/div/div/div/div[3]/a")
     public WebElement summary;
@@ -126,8 +126,10 @@ public class BuildCarPageObject {
     public WebElement noticeWindow;
 
 
-    @FindBy(xpath = "//body/div[1]/div[2]/div[1]/div[4]/div[2]/div[1]/audi-configurator-tile-list[1]/div[1]/div[1]/ul[1]/li[5]/div[1]/div[2]/div[1]/span[1]")
+    @FindBy(xpath = "/html/body/div[1]/div[2]/div/div[4]/div[2]/div/audi-configurator-tile-list[1]/div/div/ul/li[4]/div/div[2]/div[1]/span")
     public WebElement colorPrice;
+    @FindBy(xpath = "/html/body/div[1]/div[2]/div/div[4]/div[2]/div/audi-configurator-tile-list[2]/div/div/ul/li[5]/div/div[2]/div[1]/span")
+    public WebElement wheelsPrice;
 
     @FindBy(xpath = "/html/body/div[1]/div[2]/div/div[4]/div[2]/div/div[2]/div[6]/div/div/div[2]")
     public WebElement conveniencePrice;

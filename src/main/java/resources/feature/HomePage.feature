@@ -29,10 +29,19 @@ Feature: Etsy search functionality
     When user chooses wheel
     Then validate if the text on wheel label is equal to "19\" 5-double-arm design wheels, bi-color finish, with all-season tires $800"
 
-#  Scenario: fifth test case
-#    Then validate if MSRP from build page is equal to MSRP from summary page
-#    And validate if sum of equipments is equal to 2845
-#    And validate total price is 48040
-#
+  Scenario: fourth test case
+    When user click add convenience package button
+    Then validate remove text is displayed
+    When user click add rear side button
+    Then validate remove text is displayed2
+    And verify sum of options
+    And verify the total prices
+
+  Scenario: fifth test case
+    Then validate if MSRP from build page is equal to MSRP from summary page
+    And validate if sum of equipments is equal to 2845
+    And validate total price is 48040
+
+
 
 

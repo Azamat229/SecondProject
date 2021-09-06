@@ -87,13 +87,14 @@ public class BuildCarPageTest3 {
     }
 
     @When("user chooses wheel")
-    public  void click19Wheel() {
+    public  void click19Wheel() throws InterruptedException {
         WebElement butClose = buildPage.closePopUp;
         butClose.click();
 
         jse.executeScript("arguments[0].scrollIntoView();", buildPage.priceOfColor);
 
         buildPage.wheel.click();
+        Thread.sleep(1000);
 
         LOG.info("user clicked wheel button");
 
@@ -107,6 +108,7 @@ public class BuildCarPageTest3 {
         Assertions.assertEquals(nameOfWheel, wheelInfo);
 
         LOG.info("validated wheel text");
+
 
     }
 

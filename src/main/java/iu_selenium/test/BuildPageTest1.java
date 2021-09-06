@@ -1,18 +1,15 @@
 package iu_selenium.test;
 
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import iu_selenium.pages.BuildCarPageObject;
 import iu_selenium.pages.DetailPageObject;
-import iu_selenium.pages.HomePageObject;
 import iu_selenium.utils.Driver;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.junit.jupiter.api.Assertions;
-import org.testng.annotations.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -32,23 +29,6 @@ public class BuildPageTest1 {
     WebDriver driver = Driver.getDriver("chrome");
     WebDriverWait wait = new WebDriverWait(driver, 100);
 
-//    @Test(priority = 1)
-//    public void userIsOnHomePage() {
-//        driver.get("https://www.audiusa.com/us/web/en/models/q5/q5/2022/overview/build.html#");
-//    }
-
-//    @Test(priority = 2)
-//    public void settingUpPage() {
-//
-//        WebElement noticeWindowClose = wait.until(ExpectedConditions.visibilityOf(BuildCarPageObject.getBuildPage(driver).noticeWindow));
-//        noticeWindowClose.click();
-
-//        WebElement cookieButtonClick = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).cookieSettingsButton));
-//        cookieButtonClick.click();
-//        WebElement cookieAcceptButtonClick = wait.until(ExpectedConditions.visibilityOf(HomePageObject.getHomePage(driver).cookieSettingsButtonAccept));
-//        cookieAcceptButtonClick.click();
-
-    //    }
     @When("user click to build button")
     public void userOnDetailPage() {
 
@@ -111,7 +91,6 @@ public class BuildPageTest1 {
     @And("validate 3 version of car dif options")
     public void validateThreeVersionHasDifOptions() {
 
-        // 55 TFSI® e Plug-in hybrid
         List<WebElement> optionOfCar = wait.until(ExpectedConditions.visibilityOfAllElements(BuildCarPageObject.getBuildPage(driver).optionOfCar));
         int sizeOption = optionOfCar.size();
         Assertions.assertEquals(sizeOption, 3);// изменить
